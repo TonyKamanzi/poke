@@ -37,6 +37,13 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "30bd7448-1994-418c-92e5-c6fee9aed433"
+      }
+    },
+    "owner": "tonykamanzis-team"
   }
 }
