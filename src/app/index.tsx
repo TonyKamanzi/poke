@@ -6,11 +6,10 @@ interface Pokemon {
   name: string;
   image: string;
   imageBack: string;
- types: PokemonType[];
+  types: PokemonType[];
 }
 
 interface PokemonType {
-
   type: {
     name: string;
     url: string;
@@ -48,25 +47,60 @@ export default function HomeScreen() {
     fetchPoke();
   }, []);
 
+  const colorsByType: Record<string, string> = {
+    grass: "#78C850",
+    fire: "#F08030",
+    water: "#6890F0",
+    bug: "#A8B820",
+    normal: "#A8A878",
+    poison: "#A040A0",
+    electric: "#F8D030",
+    ground: "#E0C068",
+    fairy: "#EE99AC",
+    fighting: "#C03028",
+    psychic: "#F85888",
+    rock: "#B8A038",
+    ghost: "#705898",
+    ice: "#98D8D8",
+    dragon: "#7038F8",
+  };
+
   return (
-    <ScrollView>
-      {pokes.map((poke) => (
-        <View key={poke.name}>
-          <Text className="">{poke.name}</Text>
-          <Text className="">{ poke.types[0]?.type.name }</Text>
-          <View className="flex-row justify-center items-center p-4
-          ">
-            <Image
-              source={{ uri: poke.image }}
-              style={{ width: 150, height: 150 }}
-            />
-            <Image
-              source={{ uri: poke.imageBack }}
-              style={{ width: 150, height: 150 }}
-            />
+    <ScrollView contentContainerStyle={{ gap: 16, padding: 16 }}>
+      {pokes.map((poke) => {
+        const typeName = poke.types[0]?.type.name;
+        const backgroundColor = `${colorsByType[typeName ?? ""] ?? "#fff"}50`;
+
+        return (
+          <View
+            key={poke.name}
+            style={{
+              backgroundColor,
+              borderRadius: 8,
+              padding: 20,
+            }}
+          >
+            <Text className="font-bold text-[28px] text-center">
+              {poke.name}
+            </Text>
+            <View className="items-center p-4">
+              <Text className="mb-2 font-semibold text-center text-gray-600">
+                {poke.types[0]?.type.name}
+              </Text>
+              <View className="flex-row justify-center">
+                <Image
+                  source={{ uri: poke.image }}
+                  style={{ width: 150, height: 150 }}
+                />
+                <Image
+                  source={{ uri: poke.imageBack }}
+                  style={{ width: 150, height: 150 }}
+                />
+              </View>
+            </View>
           </View>
-        </View>
-      ))}
+        );
+      })}
     </ScrollView>
   );
 }
