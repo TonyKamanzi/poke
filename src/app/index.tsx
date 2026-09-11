@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Link } from "expo-router";
 import { useEffect, useState } from "react";
 import { Image, ScrollView, Text, View } from "react-native";
 
@@ -72,7 +73,8 @@ export default function HomeScreen() {
         const backgroundColor = `${colorsByType[typeName ?? ""] ?? "#fff"}50`;
 
         return (
-          <View
+          <Link
+            href={{ pathname: "/details", params: { name: poke.name } }}
             key={poke.name}
             style={{
               backgroundColor,
@@ -80,25 +82,27 @@ export default function HomeScreen() {
               padding: 20,
             }}
           >
-            <Text className="font-bold text-[28px] text-center">
-              {poke.name}
-            </Text>
-            <View className="items-center p-4">
-              <Text className="mb-2 font-semibold text-center text-gray-600">
-                {poke.types[0]?.type.name}
+            <View>
+              <Text className="font-bold text-[28px] text-center">
+                {poke.name}
               </Text>
-              <View className="flex-row justify-center">
-                <Image
-                  source={{ uri: poke.image }}
-                  style={{ width: 150, height: 150 }}
-                />
-                <Image
-                  source={{ uri: poke.imageBack }}
-                  style={{ width: 150, height: 150 }}
-                />
+              <View className="items-center p-4">
+                <Text className="mb-2 font-semibold text-center text-gray-600">
+                  {poke.types[0]?.type.name}
+                </Text>
+                <View className="flex-row justify-center">
+                  <Image
+                    source={{ uri: poke.image }}
+                    style={{ width: 150, height: 150 }}
+                  />
+                  <Image
+                    source={{ uri: poke.imageBack }}
+                    style={{ width: 150, height: 150 }}
+                  />
+                </View>
               </View>
             </View>
-          </View>
+          </Link>
         );
       })}
     </ScrollView>
